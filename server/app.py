@@ -1,30 +1,18 @@
 from flask import Flask, request, jsonify
-from pymongo import MongoClient
-import json
-import bcrypt
-
-config = {}
-with open('config.json') as f:
-    config = json.load(f)
-print(config)
+from api import db
 
 app = Flask(__name__)
-client = MongoClient(f"mongodb+srv://{config['username']}:{config['password']}@{config['cluster']}.6ba2vaf.mongodb.net/?retryWrites=true&w=majority")
-db = client['wedding']
-
 @app.route('/api/signup', methods=['POST'])
 def signup():
     invitees_collection = db['Invitees']
     rsvp_collection = db['rsvp']
     user_data = request.json
-    # print(user_data)
-    print(invitees_collection.find_one({'email': user_data['email']}))
-    # Check if the user already exists
+    # Check if the user is invited
     if invitees_collection.find_one({'email': user_data['email']}) is None:
         return jsonify({'message': 'Please use the email address you were invited with', 'status': 400})
 
-    # Hash the password
-
+    if rsvp_collection.find_one({'email': user_data['email']}) is not None:
+        return jsonify({'message': 'This email address has already responded', 'status': 400})
     # Insert user data into the database
     user_id = rsvp_collection.insert_one({
         'email': user_data['email'],
