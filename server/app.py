@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from api import db
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 @app.route('/api/rsvp', methods=['POST'])
+@cross_origin()
 def signup():
     invitees_collection = db['Invitees']
     rsvp_collection = db['rsvp']
@@ -17,7 +19,7 @@ def signup():
     user_id = rsvp_collection.insert_one({
         'email': user_data['email'],
         'attending': user_data['attending'],
-        'guests': user_data['guests'],
+        'guest': user_data['guest'],
     }).inserted_id
 
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id)})

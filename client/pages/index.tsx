@@ -2,11 +2,24 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { rsvp } from "@/utils/apiUtils";
+import { Button } from "@mui/material";
+import RsvpModal from "@/components/modals/rsvpModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  // useEffect(() => {
+  //   try {
+  //     const a = rsvp("jack2@job.com", "Jack User", true, "jeremy");
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
+
+  const [showRsvpModal, setShowRsvpModal] = useState(false);
+
   return (
     <>
       <Head>
@@ -93,6 +106,7 @@ export default function Home() {
               Discover and deploy boilerplate example Next.js&nbsp;projects.
             </p>
           </a>
+          <Button onClick={() => setShowRsvpModal(true)}>RSVP</Button>
 
           <a
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -110,6 +124,7 @@ export default function Home() {
           </a>
         </div>
       </main>
+      {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
     </>
   );
 }
