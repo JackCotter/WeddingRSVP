@@ -23,6 +23,7 @@ const RsvpModal = (props: RsvpModalProps) => {
   const [attending, setAttending] = useState(false);
   const [guest, setGuest] = useState("");
   const [errorBar, setErrorBar] = useState({ show: false, message: "" });
+  const [needsGuest, setNeedsGuest] = useState(false);
   const router = useRouter();
   const rsvpUser = async () => {
     const a = await rsvp(email, name, attending, guest);
@@ -38,7 +39,7 @@ const RsvpModal = (props: RsvpModalProps) => {
     <Dialog open={true} onClose={props.onClose}>
       <DialogTitle>RSVP</DialogTitle>
       <DialogContent>
-        <Stack spacing={2} direction="column">
+        <Stack spacing={2} direction="column" style={{ minWidth: "500px" }}>
           {errorBar.show && (
             <Alert severity="error">
               {errorBar.message ? errorBar.message : "There was a server error"}
@@ -54,11 +55,20 @@ const RsvpModal = (props: RsvpModalProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField
-            label="Guest Name"
-            value={guest}
-            onChange={(e) => setGuest(e.target.value)}
-          />
+          <Button
+            variant={needsGuest ? "contained" : "outlined"}
+            onClick={() => setNeedsGuest(!needsGuest)}
+            startIcon={needsGuest && <CheckIcon />}
+          >
+            Bringing a guest?
+          </Button>
+          {needsGuest && (
+            <TextField
+              label="Guest Name"
+              value={guest}
+              onChange={(e) => setGuest(e.target.value)}
+            />
+          )}
           <Button
             variant={attending ? "contained" : "outlined"}
             onClick={() => setAttending(!attending)}

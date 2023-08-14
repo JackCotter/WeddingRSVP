@@ -12,6 +12,7 @@ export default function Home() {
         className={style["rsvp-button"]}
         onClick={() => setShowRsvpModal(true)}
         size="large"
+        variant="contained"
       >
         RSVP
       </Button>
