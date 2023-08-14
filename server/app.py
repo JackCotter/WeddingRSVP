@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from api import db
 
 app = Flask(__name__)
-@app.route('/api/signup', methods=['POST'])
+@app.route('/api/rsvp', methods=['POST'])
 def signup():
     invitees_collection = db['Invitees']
     rsvp_collection = db['rsvp']
