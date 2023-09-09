@@ -1,16 +1,52 @@
-.background-container {
-  background-image: url('../public/holdingHands.jpg'); /* Adjust the path to your image */
-  background-size: cover; /* Adjust the sizing of the background */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.container{
+  display:flex;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.main-page {
+  background-image: url('../public/holdingHands.jpg'); 
+  background-position: center;
+  background-size: cover;
   width: 100%;
   height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.important-info {
+  background-color: #f7e9f7;
+  background-size: cover; /* Adjust the sizing of the background */
+  border-style: double;
+  margin: 1.5vh;
+  padding: 7.5vh;
+  height: 82vh;
+  font-family: 'Dancing Script', cursive;
 }
 
 .rsvp-button {
-  left: 50%;
-  top: 60%;
-  transition: opacity is ease-in-out;
+  margin: 10px;
+  background-color: white;
+  color: black;
 }
 
-.rsvp-button.fade-in {
-  opacity: 1;
+.rsvp-button:hover {
+  background-color: gray;
+}
+
+.info-button {
+  margin: 10px;
+  color: white;
+}
+
+.info-button:hover {
+  color: gray;
+}
+
+.cursive {
+  font-family: 'Dancing Script', cursive;
 }
