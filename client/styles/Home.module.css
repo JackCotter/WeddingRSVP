@@ -1,8 +1,27 @@
-.background-container {
-  background-image: url('../public/holdingHands.jpg'); /* Adjust the path to your image */
-  background-size: cover; /* Adjust the sizing of the background */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.container{
+  display:flex;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.main-page {
+  background-image: url('../public/holdingHands.jpg'); 
+  background-position: center;
+  background-size: cover;
   width: 100%;
   height: 100vh;
+}
+
+.important-info {
+  background-color: whitesmoke;
+  background-size: cover; /* Adjust the sizing of the background */
+  border-style: double;
+  margin: 0.3vh;
+  padding: 3vh;
+  height: 96.7vh;
 }
 
 .rsvp-button {
@@ -14,3 +33,7 @@
 .rsvp-button.fade-in {
   opacity: 1;
 }
+
+/* .cursive {
+  font-family: 'Dancing Script', cursive;
+} */
