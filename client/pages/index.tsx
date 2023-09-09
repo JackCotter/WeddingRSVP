@@ -26,27 +26,57 @@ export default function Home() {
   return (
     <Stack direction="column" className={style["container"]}>
       <div className={style["main-page"]}>
-        <Button
-          className={style["rsvp-button"]}
-          onClick={() => setShowRsvpModal(true)}
-          size="large"
-          variant="contained"
-        >
-          RSVP
-        </Button>
+        <div className={style["button-container"]}>
+          <Button className={style["info-button"]} onClick={scrollToBottom}>
+            important info
+          </Button>
+          <Button
+            className={style["rsvp-button"]}
+            onClick={() => setShowRsvpModal(true)}
+            size="large"
+            variant="contained"
+          >
+            RSVP
+          </Button>
+        </div>
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
-        <Button onClick={scrollToBottom}>important info</Button>
       </div>
       <Box className={style["important-info"]}>
         <Typography className={style["cursive"]} variant="h1">
           here are some important things!
         </Typography>
-        <Typography className={style["cursive"]} variant="h3">
-          Accomodation Details:
-        </Typography>
-        <Card>
-          <CardContent>Asfsdfsd</CardContent>
-        </Card>
+        <Stack direction="row" spacing={2}>
+          <Stack direction="column">
+            <Typography className={style["cursive"]} variant="h3">
+              Accomodation Details:
+            </Typography>
+            <Typography className={style["cursive"]} variant="h5">
+              We have reserved a block of rooms at the exquisite 'Harmony
+              Heights Inn,' a charming boutique hotel nestled amidst the scenic
+              beauty of the countryside. Each room is elegantly appointed and
+              features picturesque views, ensuring your stay is both comfortable
+              and memorable. To secure your accommodation, please mention our
+              wedding when booking your stay at the 'Harmony Heights Inn.' We
+              can't wait to share this special day with you, and we hope you
+              enjoy your time in our picturesque town.
+            </Typography>
+          </Stack>
+          <Stack direction="column">
+            <Typography className={style["cursive"]} variant="h3">
+              Bar and Ammenities:
+            </Typography>
+            <Typography className={style["cursive"]} variant="h5">
+              We have reserved a block of rooms at the exquisite 'Harmony
+              Heights Inn,' a charming boutique hotel nestled amidst the scenic
+              beauty of the countryside. Each room is elegantly appointed and
+              features picturesque views, ensuring your stay is both comfortable
+              and memorable. To secure your accommodation, please mention our
+              wedding when booking your stay at the 'Harmony Heights Inn.' We
+              can't wait to share this special day with you, and we hope you
+              enjoy your time in our picturesque town.
+            </Typography>
+          </Stack>
+        </Stack>
       </Box>
     </Stack>
   );
