@@ -12,21 +12,23 @@ import CheckIcon from "@mui/icons-material/Check";
 import { rsvp } from "@/utils/apiUtils";
 import { useRouter } from "next/router";
 import { APIResponse } from "@/interfaces/apiInterfaces";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 interface RsvpModalProps {
   onClose: () => void;
 }
 
 const RsvpModal = (props: RsvpModalProps) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [attending, setAttending] = useState(false);
-  const [guest, setGuest] = useState("");
   const [errorBar, setErrorBar] = useState({ show: false, message: "" });
-  const [needsGuest, setNeedsGuest] = useState(false);
   const router = useRouter();
   const rsvpUser = async () => {
-    const a = await rsvp(email, name, attending, guest);
+    const a = await rsvp(
+      formik.values.email,
+      formik.values.name,
+      formik.values.attending,
+      formik.values.guest
+    );
     console.log(a);
     if (a.status !== 200) {
       setErrorBar({ show: true, message: a.message });
@@ -35,52 +37,90 @@ const RsvpModal = (props: RsvpModalProps) => {
       router.push("/rsvpSuccess");
     }
   };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      name: "",
+      attending: true,
+      needsGuest: false,
+      guest: "",
+    },
+    validationSchema: yup.object({
+      email: yup
+        .string()
+        .email("Please enter a valid email")
+        .required("Please provide your email address"),
+      name: yup.string().required("Please provide your name"),
+      attending: yup.boolean(),
+      guest: yup.string(),
+    }),
+    validateOnChange: false,
+    onSubmit: () => rsvpUser(),
+  });
   return (
     <Dialog open={true} onClose={props.onClose}>
       <DialogTitle>RSVP</DialogTitle>
       <DialogContent>
-        <Stack spacing={2} direction="column" style={{ minWidth: "500px" }}>
-          {errorBar.show && (
-            <Alert severity="error">
-              {errorBar.message ? errorBar.message : "There was a server error"}
-            </Alert>
-          )}
-          <TextField
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button
-            variant={needsGuest ? "contained" : "outlined"}
-            onClick={() => setNeedsGuest(!needsGuest)}
-            startIcon={needsGuest && <CheckIcon />}
-          >
-            Bringing a guest?
-          </Button>
-          {needsGuest && (
+        <form onSubmit={formik.handleSubmit}>
+          <Stack spacing={2} direction="column" style={{ minWidth: "500px" }}>
+            {errorBar.show && (
+              <Alert severity="error">
+                {errorBar.message
+                  ? errorBar.message
+                  : "There was a server error"}
+              </Alert>
+            )}
             <TextField
-              label="Guest Name"
-              value={guest}
-              onChange={(e) => setGuest(e.target.value)}
+              label="Name"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.errors.name !== undefined}
+              helperText={formik.errors.name}
             />
-          )}
-          <Button
-            variant={attending ? "contained" : "outlined"}
-            onClick={() => setAttending(!attending)}
-            startIcon={attending && <CheckIcon />}
-          >
-            Attending
-          </Button>
-          <Button variant="contained" onClick={rsvpUser}>
-            {" "}
-            Submit{" "}
-          </Button>
-        </Stack>
+            <TextField
+              label="Email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.errors.email !== undefined}
+              helperText={formik.errors.email}
+            />
+            <Button
+              variant={formik.values.needsGuest ? "contained" : "outlined"}
+              name="needsGuest"
+              onClick={() =>
+                formik.setFieldValue("needsGuest", !formik.values.needsGuest)
+              }
+              startIcon={formik.values.needsGuest && <CheckIcon />}
+            >
+              Bringing a guest?
+            </Button>
+            {formik.values.needsGuest && (
+              <TextField
+                label="Guest Name"
+                name="guest"
+                value={formik.values.guest}
+                onChange={formik.handleChange}
+              />
+            )}
+            <Button
+              variant={formik.values.attending ? "contained" : "outlined"}
+              name="attending"
+              id="attending"
+              onClick={() =>
+                formik.setFieldValue("attending", !formik.values.attending)
+              }
+              startIcon={formik.values.attending && <CheckIcon />}
+            >
+              Attending
+            </Button>
+            <Button type="submit" variant="contained">
+              {" "}
+              Submit{" "}
+            </Button>
+          </Stack>
+        </form>
       </DialogContent>
     </Dialog>
   );

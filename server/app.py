@@ -27,6 +27,30 @@ def rsvp():
 
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id)})
 
+@app.route('/api/songRequest', methods=['POST'])
+@cross_origin()
+def song_request():
+    user_data = request.json
+    song_request_collection = db['SongRequests']
+    song_request_collection.insert_one({
+        'name': user_data['name'],
+        'song': user_data['song']
+    })
+
+    return jsonify({'message': 'Song Request Recorded'})
+
+@app.route('/api/dietaryRestrictions', methods=['POST'])
+@cross_origin()
+def song_request():
+    user_data = request.json
+    song_request_collection = db['DietaryRestrictions']
+    song_request_collection.insert_one({
+        'name': user_data['name'],
+        'dietaryRestrictions': user_data['dietRestrictions']
+    })
+
+    return jsonify({'message': 'Dietary Restrictions Recorded'})
+
 @app.route('/api/guestList', methods=['GET'])
 @cross_origin()
 def guestList():
