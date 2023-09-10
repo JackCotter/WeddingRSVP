@@ -9,30 +9,46 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
-import { rsvp } from "@/utils/apiUtils";
+import { dietaryRestrictions, rsvp, songRequest } from "@/utils/apiUtils";
 import { useRouter } from "next/router";
-import { APIResponse } from "@/interfaces/apiInterfaces";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import styles from "@/styles/rsvpModal.module.css";
 
 interface RsvpModalProps {
   onClose: () => void;
 }
 
 const RsvpModal = (props: RsvpModalProps) => {
-  const [errorBar, setErrorBar] = useState({ show: false, message: "" });
+  const [errorBar, setErrorBar] = useState<{
+    show: boolean;
+    message: string;
+    error: boolean;
+  }>({ show: false, message: "", error: true });
   const router = useRouter();
   const rsvpUser = async () => {
-    const a = await rsvp(
+    const rsvpQuery = await rsvp(
       formik.values.email,
       formik.values.name,
       formik.values.attending,
       formik.values.guest
     );
-    console.log(a);
-    if (a.status !== 200) {
-      setErrorBar({ show: true, message: a.message });
-      console.log(a);
+    const songQuery = await songRequest(
+      formik.values.email,
+      formik.values.name,
+      formik.values.songRequest
+    );
+    const dietQuery = await dietaryRestrictions(
+      formik.values.email,
+      formik.values.name,
+      formik.values.dietaryRestrictions
+    );
+    if (rsvpQuery.status !== 200) {
+      setErrorBar({ show: true, message: rsvpQuery.message, error: true });
+    } else if (songQuery.status !== 200) {
+      setErrorBar({ show: true, message: songQuery.message, error: true });
+    } else if (dietQuery.status !== 200) {
+      setErrorBar({ show: true, message: dietQuery.message, error: true });
     } else {
       router.push("/rsvpSuccess");
     }
@@ -44,6 +60,8 @@ const RsvpModal = (props: RsvpModalProps) => {
       attending: true,
       needsGuest: false,
       guest: "",
+      songRequest: "",
+      dietaryRestrictions: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -59,12 +77,17 @@ const RsvpModal = (props: RsvpModalProps) => {
   });
   return (
     <Dialog open={true} onClose={props.onClose}>
-      <DialogTitle>RSVP</DialogTitle>
+      <DialogTitle className={styles["modal-title"]}>RSVP</DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit}>
-          <Stack spacing={2} direction="column" style={{ minWidth: "500px" }}>
+          <Stack
+            className={styles["wrapper"]}
+            spacing={2}
+            direction="column"
+            style={{ minWidth: "500px" }}
+          >
             {errorBar.show && (
-              <Alert severity="error">
+              <Alert severity={errorBar.error ? "error" : "success"}>
                 {errorBar.message
                   ? errorBar.message
                   : "There was a server error"}
@@ -115,6 +138,18 @@ const RsvpModal = (props: RsvpModalProps) => {
             >
               Attending
             </Button>
+            <TextField
+              label="Song Requests"
+              name="songRequest"
+              value={formik.values.songRequest}
+              onChange={formik.handleChange}
+            />
+            <TextField
+              label="Dietary Restrictions"
+              name="dietaryRestrictions"
+              value={formik.values.dietaryRestrictions}
+              onChange={formik.handleChange}
+            />
             <Button type="submit" variant="contained">
               {" "}
               Submit{" "}
