@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import { dietaryRestrictions, rsvp, songRequest } from "@/utils/apiUtils";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
@@ -113,28 +114,6 @@ const RsvpModal = (props: RsvpModalProps) => {
                 helperText={formik.errors.email}
               />
             </Stack>
-            <Stack direction="row" spacing={2}>
-              <Button
-                fullWidth={!formik.values.needsGuest}
-                variant={formik.values.needsGuest ? "contained" : "outlined"}
-                name="needsGuest"
-                onClick={() =>
-                  formik.setFieldValue("needsGuest", !formik.values.needsGuest)
-                }
-                startIcon={formik.values.needsGuest && <CheckIcon />}
-              >
-                Bringing a guest?
-              </Button>
-              {formik.values.needsGuest && (
-                <TextField
-                  fullWidth
-                  label="Guest Name"
-                  name="guest"
-                  value={formik.values.guest}
-                  onChange={formik.handleChange}
-                />
-              )}
-            </Stack>
             <Button
               variant={formik.values.attending ? "contained" : "outlined"}
               name="attending"
@@ -142,26 +121,59 @@ const RsvpModal = (props: RsvpModalProps) => {
               onClick={() =>
                 formik.setFieldValue("attending", !formik.values.attending)
               }
-              startIcon={formik.values.attending && <CheckIcon />}
+              endIcon={formik.values.attending ? <CheckIcon /> : <CloseIcon />}
             >
               Attending
             </Button>
-            <Stack direction="row" spacing={2}>
-              <TextField
-                fullWidth
-                label="Song Requests"
-                name="songRequest"
-                value={formik.values.songRequest}
-                onChange={formik.handleChange}
-              />
-              <TextField
-                fullWidth
-                label="Dietary Restrictions"
-                name="dietaryRestrictions"
-                value={formik.values.dietaryRestrictions}
-                onChange={formik.handleChange}
-              />
-            </Stack>
+            {formik.values.attending && (
+              <>
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    fullWidth={!formik.values.needsGuest}
+                    variant={
+                      formik.values.needsGuest ? "contained" : "outlined"
+                    }
+                    name="needsGuest"
+                    onClick={() =>
+                      formik.setFieldValue(
+                        "needsGuest",
+                        !formik.values.needsGuest
+                      )
+                    }
+                    endIcon={
+                      formik.values.needsGuest ? <CheckIcon /> : <CloseIcon />
+                    }
+                  >
+                    Bringing a guest?
+                  </Button>
+                  {formik.values.needsGuest && (
+                    <TextField
+                      fullWidth
+                      label="Guest Name"
+                      name="guest"
+                      value={formik.values.guest}
+                      onChange={formik.handleChange}
+                    />
+                  )}
+                </Stack>
+                <Stack direction="row" spacing={2}>
+                  <TextField
+                    fullWidth
+                    label="Song Requests"
+                    name="songRequest"
+                    value={formik.values.songRequest}
+                    onChange={formik.handleChange}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Dietary Restrictions"
+                    name="dietaryRestrictions"
+                    value={formik.values.dietaryRestrictions}
+                    onChange={formik.handleChange}
+                  />
+                </Stack>
+              </>
+            )}
             <Button type="submit" variant="contained">
               {" "}
               Submit{" "}
