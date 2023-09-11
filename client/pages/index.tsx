@@ -26,32 +26,34 @@ export default function Home() {
   return (
     <Stack direction="column" className={style["container"]}>
       <div className={style["main-page"]}>
-        <div className={style["hero-text-container"]}>
-          <Typography variant="h1" className={style["hero-text"]}>
-            {" "}
-            Kali &
-          </Typography>
-          <Typography variant="h1" className={style["hero-text"]}>
-            {" "}
-            Colby{" "}
-          </Typography>
-        </div>
-        <div className={style["button-container"]}>
-          <Button className={style["info-button"]} onClick={scrollToBottom}>
-            important info
-          </Button>
-          <Button
-            className={style["rsvp-button"]}
-            onClick={() => setShowRsvpModal(true)}
-            size="large"
-            variant="contained"
-          >
-            RSVP
-          </Button>
+        <div className={style["hero-container"]}>
+          <div className={style["hero-text-container"]}>
+            <Typography variant="h1" className={style["hero-text"]}>
+              {" "}
+              Kali &
+            </Typography>
+            <Typography variant="h1" className={style["hero-text"]}>
+              {" "}
+              Colby{" "}
+            </Typography>
+          </div>
+          <div className={style["button-container"]}>
+            <Button className={style["info-button"]} onClick={scrollToBottom}>
+              important info
+            </Button>
+            <Button
+              className={style["rsvp-button"]}
+              onClick={() => setShowRsvpModal(true)}
+              size="large"
+              variant="contained"
+            >
+              RSVP
+            </Button>
+          </div>
         </div>
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>
-      <Box className={style["important-info"]}>
+      <Box className={style["important-info"]} id="tv">
         <Typography className={style["cursive"]} variant="h1">
           here are some important things!
         </Typography>
