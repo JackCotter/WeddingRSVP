@@ -93,40 +93,48 @@ const RsvpModal = (props: RsvpModalProps) => {
                   : "There was a server error"}
               </Alert>
             )}
-            <TextField
-              label="Name"
-              name="name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.errors.name !== undefined}
-              helperText={formik.errors.name}
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.errors.email !== undefined}
-              helperText={formik.errors.email}
-            />
-            <Button
-              variant={formik.values.needsGuest ? "contained" : "outlined"}
-              name="needsGuest"
-              onClick={() =>
-                formik.setFieldValue("needsGuest", !formik.values.needsGuest)
-              }
-              startIcon={formik.values.needsGuest && <CheckIcon />}
-            >
-              Bringing a guest?
-            </Button>
-            {formik.values.needsGuest && (
+            <Stack direction="row" spacing={2}>
               <TextField
-                label="Guest Name"
-                name="guest"
-                value={formik.values.guest}
+                fullWidth
+                label="Name"
+                name="name"
+                value={formik.values.name}
                 onChange={formik.handleChange}
+                error={formik.errors.name !== undefined}
+                helperText={formik.errors.name}
               />
-            )}
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.errors.email !== undefined}
+                helperText={formik.errors.email}
+              />
+            </Stack>
+            <Stack direction="row" spacing={2}>
+              <Button
+                fullWidth={!formik.values.needsGuest}
+                variant={formik.values.needsGuest ? "contained" : "outlined"}
+                name="needsGuest"
+                onClick={() =>
+                  formik.setFieldValue("needsGuest", !formik.values.needsGuest)
+                }
+                startIcon={formik.values.needsGuest && <CheckIcon />}
+              >
+                Bringing a guest?
+              </Button>
+              {formik.values.needsGuest && (
+                <TextField
+                  fullWidth
+                  label="Guest Name"
+                  name="guest"
+                  value={formik.values.guest}
+                  onChange={formik.handleChange}
+                />
+              )}
+            </Stack>
             <Button
               variant={formik.values.attending ? "contained" : "outlined"}
               name="attending"
@@ -138,18 +146,22 @@ const RsvpModal = (props: RsvpModalProps) => {
             >
               Attending
             </Button>
-            <TextField
-              label="Song Requests"
-              name="songRequest"
-              value={formik.values.songRequest}
-              onChange={formik.handleChange}
-            />
-            <TextField
-              label="Dietary Restrictions"
-              name="dietaryRestrictions"
-              value={formik.values.dietaryRestrictions}
-              onChange={formik.handleChange}
-            />
+            <Stack direction="row" spacing={2}>
+              <TextField
+                fullWidth
+                label="Song Requests"
+                name="songRequest"
+                value={formik.values.songRequest}
+                onChange={formik.handleChange}
+              />
+              <TextField
+                fullWidth
+                label="Dietary Restrictions"
+                name="dietaryRestrictions"
+                value={formik.values.dietaryRestrictions}
+                onChange={formik.handleChange}
+              />
+            </Stack>
             <Button type="submit" variant="contained">
               {" "}
               Submit{" "}
