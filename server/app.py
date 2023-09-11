@@ -27,6 +27,42 @@ def rsvp():
 
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id)})
 
+@app.route('/api/songRequest', methods=['POST'])
+@cross_origin()
+def song_request():
+    user_data = request.json
+    song_request_collection = db['SongRequests']
+    invitees_collection = db['Invitees']
+    if song_request_collection.find_one({'email': user_data['email']}) is not None:
+        return jsonify({'message': 'This guest has already provided a song request', 'status': 400})
+    if invitees_collection.find_one({'email': user_data['email']}) is None:
+        return jsonify({'message': 'This email is not authorized', 'status': 400})
+    song_request_collection.insert_one({
+        'email': user_data['email'],
+        'name': user_data['name'],
+        'song': user_data['song']
+    })
+
+    return jsonify({'message': 'Song Request Recorded'})
+
+@app.route('/api/dietaryRestrictions', methods=['POST'])
+@cross_origin()
+def dietary_restrictions():
+    user_data = request.json
+    dietary_restrictions_collection = db['DietaryRestrictions']
+    invitees_collection = db['Invitees']
+    if dietary_restrictions_collection.find_one({'email': user_data['email']}) is not None:
+        return jsonify({'message': 'This guest has already specified dietary restrictions', 'status': 400})
+    if invitees_collection.find_one({'email': user_data['email']}) is None:
+        return jsonify({'message': 'This email is not authorized', 'status': 400})
+    dietary_restrictions_collection.insert_one({
+        'email': user_data['email'],
+        'name': user_data['name'],
+        'dietaryRestrictions': user_data['diet']
+    })
+
+    return jsonify({'message': 'Dietary Restrictions Recorded'})
+
 @app.route('/api/guestList', methods=['GET'])
 @cross_origin()
 def guestList():
