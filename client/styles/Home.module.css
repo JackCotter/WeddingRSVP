@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
-.container{
-  display:flex;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   width: 100%;
   height: 100%;
+  background-color: gray;
 }
 
 .main-page {
@@ -21,11 +24,24 @@
 .important-info {
   background-color: #f7e9f7;
   background-size: cover; /* Adjust the sizing of the background */
-  border-style: double;
-  margin: 1.5vh;
+  /* border-style: double; */
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   padding: 7.5vh;
-  height: 82vh;
   font-family: 'Dancing Script', cursive;
+  position: relative;
+  height: 82vh;
+  width: 35vw;
+  background: white;
+  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+  box-shadow: 20px 20px rgba(0,0,0,.15);
+  transition: all .4s ease;
+}
+
+.important-info:hover {
+  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+  box-shadow: 10px 10px rgba(0,0,0,.25);
+  translate: -5px -5px;
 }
 
 .rsvp-button {
@@ -56,13 +72,22 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  left: 65%;
-  top: 13%;
 }
 
 .hero-text {
   font-family: 'Dancing Script', cursive;
   font-size: 140px;
   color: black;
+}
+
+.button-container {
+  padding-top: 10px;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 65%;
+  top: 13%;
 }

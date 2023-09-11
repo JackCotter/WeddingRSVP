@@ -53,9 +53,9 @@ export default function Home() {
         </div>
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>
-      <Box className={style["important-info"]} id="tv">
+      <Box className={style["important-info"]}>
         <Typography className={style["cursive"]} variant="h1">
-          here are some important things!
+          Important things!
         </Typography>
         <Stack direction="row" spacing={2}>
           <Stack direction="column">
