@@ -26,6 +26,16 @@ export default function Home() {
   return (
     <Stack direction="column" className={style["container"]}>
       <div className={style["main-page"]}>
+        <div className={style["hero-text-container"]}>
+          <Typography variant="h1" className={style["hero-text"]}>
+            {" "}
+            Kali &
+          </Typography>
+          <Typography variant="h1" className={style["hero-text"]}>
+            {" "}
+            Colby{" "}
+          </Typography>
+        </div>
         <div className={style["button-container"]}>
           <Button className={style["info-button"]} onClick={scrollToBottom}>
             important info

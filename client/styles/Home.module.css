@@ -8,7 +8,7 @@
 }
 
 .main-page {
-  background-image: url('../public/holdingHands.jpg'); 
+  background-image: url('../public/main.jpg'); 
   background-position: center;
   background-size: cover;
   width: 100%;
@@ -49,4 +49,20 @@
 
 .cursive {
   font-family: 'Dancing Script', cursive;
+}
+
+.hero-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 65%;
+  top: 13%;
+}
+
+.hero-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 140px;
+  color: black;
 }
