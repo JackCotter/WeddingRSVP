@@ -54,15 +54,15 @@ export default function Home() {
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>
       <Box className={style["important-info"]}>
-        <Typography className={style["cursive"]} variant="h1">
+        <Typography className={style["cursive-h1"]} variant="h1">
           Important things!
         </Typography>
         <Stack direction="row" spacing={2}>
           <Stack direction="column">
-            <Typography className={style["cursive"]} variant="h3">
+            <Typography className={style["cursive-h3"]} variant="h3">
               Accomodation Details:
             </Typography>
-            <Typography className={style["cursive"]} variant="h5">
+            <Typography className={style["cursive-body"]} variant="body1">
               We have reserved a block of rooms at the exquisite 'Harmony
               Heights Inn,' a charming boutique hotel nestled amidst the scenic
               beauty of the countryside. Each room is elegantly appointed and
@@ -74,10 +74,10 @@ export default function Home() {
             </Typography>
           </Stack>
           <Stack direction="column">
-            <Typography className={style["cursive"]} variant="h3">
+            <Typography className={style["cursive-h3"]} variant="h3">
               Bar and Ammenities:
             </Typography>
-            <Typography className={style["cursive"]} variant="h5">
+            <Typography className={style["cursive-body"]} variant="body1">
               We have reserved a block of rooms at the exquisite 'Harmony
               Heights Inn,' a charming boutique hotel nestled amidst the scenic
               beauty of the countryside. Each room is elegantly appointed and

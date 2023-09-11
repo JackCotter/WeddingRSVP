@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   width: 100%;
   height: 100%;
   background-color: gray;
@@ -12,36 +11,12 @@
 
 .main-page {
   background-image: url('../public/main.jpg'); 
-  background-position: center;
+  background-position: 25% 0%;
   background-size: cover;
+  max-width: 100%;
   width: 100%;
   height: 100vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.important-info {
-  background-color: #f7e9f7;
-  background-size: cover; /* Adjust the sizing of the background */
-  /* border-style: double; */
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  padding: 7.5vh;
-  font-family: 'Dancing Script', cursive;
-  position: relative;
-  height: 82vh;
-  width: 35vw;
-  background: white;
-  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
-  box-shadow: 20px 20px rgba(0,0,0,.15);
-  transition: all .4s ease;
-}
-
-.important-info:hover {
-  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
-  box-shadow: 10px 10px rgba(0,0,0,.25);
-  translate: -5px -5px;
 }
 
 .rsvp-button {
@@ -63,11 +38,14 @@
   color: gray;
 }
 
-.cursive {
-  font-family: 'Dancing Script', cursive;
+.button-container {
+  padding-top: 1vh;
+  display: flex;
+  flex-direction: row;
 }
 
 .hero-text-container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,18 +54,121 @@
 
 .hero-text {
   font-family: 'Dancing Script', cursive;
-  font-size: 140px;
+  font-size: 10vw;
   color: black;
-}
-
-.button-container {
-  padding-top: 10px;
 }
 
 .hero-container {
   display: flex;
+  align-items: center;
   flex-direction: column;
   position: absolute;
   left: 65%;
   top: 13%;
+}
+
+.cursive-h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 8vh;
+}
+.cursive-h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4vh;
+}
+.cursive-body {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.7vh;
+}
+
+@media only screen and (max-width: 450px) {
+.main-page {
+  background-image: url('../public/main-mobile.jpg'); 
+  background-position: center;
+  /* background-size: cover; */
+  max-width: 100%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cursive-h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3vh;
+}
+.cursive-h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2vh;
+}
+.cursive-body {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5vh;
+}
+.hero-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: static;
+}
+.button-container {
+  padding-top: 20vh;
+  display: flex;
+  flex-direction: column;
+}
+}
+
+@media only screen and (max-width: 700px) and (min-width:450px) {
+.main-page {
+  background-image: url('../public/main.jpg'); 
+  background-position: 25% 0%;
+  max-width: 100%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cursive-h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3vh;
+}
+.cursive-h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2vh;
+}
+.cursive-body {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5vh;
+}
+.hero-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.button-container {
+  padding-top: 20vh;
+  display: flex;
+  flex-direction: column;
+}
+}
+.important-info {
+  background-color: #f7e9f7;
+  background-size: cover; 
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding: 7.5vh;
+  font-family: 'Dancing Script', cursive;
+  position: relative;
+  height: 82vh;
+  width: 35vw;
+  background: white;
+  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+  box-shadow: 20px 20px rgba(0,0,0,.15);
+  transition: all .4s ease;
+}
+
+.important-info:hover {
+  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+  box-shadow: 10px 10px rgba(0,0,0,.25);
+  translate: -5px -5px;
 }
