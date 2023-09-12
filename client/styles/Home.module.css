@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: gray;
+  background-color: #c7d0d1;
 }
 
 .main-page {
@@ -67,9 +67,31 @@
   top: 13%;
 }
 
+.important-info {
+  background-color: #f7e9f7;
+  background-size: cover; 
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding: 7.5vh;
+  font-family: 'Dancing Script', cursive;
+  position: relative;
+  height: 82vh;
+  width: 35vw;
+  box-shadow:
+	  inset #009688 0 0 0 5px, 
+    inset #059c8e 0 0 0 1px, 
+    inset #0cab9c 0 0 0 10px, 
+    inset #1fbdae 0 0 0 11px, 
+    inset #8ce9ff 0 0 0 16px, 
+    inset #48e4d6 0 0 0 17px, 
+    inset #e5f9f7 0 0 0 21px, 
+    inset #bfecf7 0 0 0 22px;
+  text-shadow: 3px 3px 1px #bfecf7;
+}
+
 .cursive-h1 {
   font-family: 'Dancing Script', cursive;
-  font-size: 8vh;
+  font-size: 4vh;
 }
 .cursive-h3 {
   font-family: 'Dancing Script', cursive;
@@ -81,94 +103,73 @@
 }
 
 @media only screen and (max-width: 450px) {
-.main-page {
-  background-image: url('../public/main-mobile.jpg'); 
-  background-position: center;
-  /* background-size: cover; */
-  max-width: 100%;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cursive-h1 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3vh;
-}
-.cursive-h3 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2vh;
-}
-.cursive-body {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5vh;
-}
-.hero-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: static;
-}
-.button-container {
-  padding-top: 20vh;
-  display: flex;
-  flex-direction: column;
-}
+  .main-page {
+    background-image: url('../public/main-mobile.jpg'); 
+    background-position: center;
+    /* background-size: cover; */
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cursive-h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3vh;
+  }
+  .cursive-h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2vh;
+  }
+  .cursive-body {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5vh;
+  }
+  .hero-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: static;
+  }
+  .button-container {
+    padding-top: 20vh;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 700px) and (min-width:450px) {
-.main-page {
-  background-image: url('../public/main.jpg'); 
-  background-position: 25% 0%;
-  max-width: 100%;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cursive-h1 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3vh;
-}
-.cursive-h3 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2vh;
-}
-.cursive-body {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5vh;
-}
-.hero-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.button-container {
-  padding-top: 20vh;
-  display: flex;
-  flex-direction: column;
-}
-}
-.important-info {
-  background-color: #f7e9f7;
-  background-size: cover; 
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  padding: 7.5vh;
-  font-family: 'Dancing Script', cursive;
-  position: relative;
-  height: 82vh;
-  width: 35vw;
-  background: white;
-  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
-  box-shadow: 20px 20px rgba(0,0,0,.15);
-  transition: all .4s ease;
-}
-
-.important-info:hover {
-  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
-  box-shadow: 10px 10px rgba(0,0,0,.25);
-  translate: -5px -5px;
+  .main-page {
+    background-image: url('../public/main.jpg'); 
+    background-position: 25% 0%;
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cursive-h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4vh;
+  }
+  .cursive-h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5vh;
+  }
+  .cursive-body {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.7vh;
+  }
+  .hero-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .button-container {
+    padding-top: 20vh;
+    display: flex;
+    flex-direction: column;
+  }
 }
