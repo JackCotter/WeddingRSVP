@@ -79,14 +79,9 @@ const RsvpModal = (props: RsvpModalProps) => {
   return (
     <Dialog open={true} onClose={props.onClose}>
       <DialogTitle className={styles["modal-title"]}>RSVP</DialogTitle>
-      <DialogContent>
+      <DialogContent className={styles["modal-content"]}>
         <form onSubmit={formik.handleSubmit}>
-          <Stack
-            className={styles["wrapper"]}
-            spacing={2}
-            direction="column"
-            style={{ minWidth: "500px" }}
-          >
+          <Stack className={styles["wrapper"]} spacing={2} direction="column">
             {errorBar.show && (
               <Alert severity={errorBar.error ? "error" : "success"}>
                 {errorBar.message
@@ -94,8 +89,9 @@ const RsvpModal = (props: RsvpModalProps) => {
                   : "There was a server error"}
               </Alert>
             )}
-            <Stack direction="row" spacing={2}>
+            <div className={styles["stack-row"]}>
               <TextField
+                className={styles["input-box-1"]}
                 fullWidth
                 label="Name"
                 name="name"
@@ -105,6 +101,7 @@ const RsvpModal = (props: RsvpModalProps) => {
                 helperText={formik.errors.name}
               />
               <TextField
+                className={styles["input-box-2"]}
                 fullWidth
                 label="Email"
                 name="email"
@@ -113,7 +110,7 @@ const RsvpModal = (props: RsvpModalProps) => {
                 error={formik.errors.email !== undefined}
                 helperText={formik.errors.email}
               />
-            </Stack>
+            </div>
             <Button
               variant={formik.values.attending ? "contained" : "outlined"}
               name="attending"
@@ -127,9 +124,10 @@ const RsvpModal = (props: RsvpModalProps) => {
             </Button>
             {formik.values.attending && (
               <>
-                <Stack direction="row" spacing={2}>
+                <div className={styles["stack-row"]}>
                   <Button
-                    fullWidth={!formik.values.needsGuest}
+                    className={styles["input-box-1"]}
+                    fullWidth
                     variant={
                       formik.values.needsGuest ? "contained" : "outlined"
                     }
@@ -141,13 +139,18 @@ const RsvpModal = (props: RsvpModalProps) => {
                       )
                     }
                     endIcon={
-                      formik.values.needsGuest ? <CheckIcon /> : <CloseIcon />
+                      formik.values.needsGuest ? (
+                        <CheckIcon className={styles["guest-check-icon"]} />
+                      ) : (
+                        <CloseIcon />
+                      )
                     }
                   >
                     Bringing a guest?
                   </Button>
                   {formik.values.needsGuest && (
                     <TextField
+                      className={styles["input-box-2"]}
                       fullWidth
                       label="Guest Name"
                       name="guest"
@@ -155,9 +158,10 @@ const RsvpModal = (props: RsvpModalProps) => {
                       onChange={formik.handleChange}
                     />
                   )}
-                </Stack>
-                <Stack direction="row" spacing={2}>
+                </div>
+                <div className={styles["stack-row"]}>
                   <TextField
+                    className={styles["input-box-1"]}
                     fullWidth
                     label="Song Requests"
                     name="songRequest"
@@ -165,13 +169,14 @@ const RsvpModal = (props: RsvpModalProps) => {
                     onChange={formik.handleChange}
                   />
                   <TextField
+                    className={styles["input-box-2"]}
                     fullWidth
                     label="Dietary Restrictions"
                     name="dietaryRestrictions"
                     value={formik.values.dietaryRestrictions}
                     onChange={formik.handleChange}
                   />
-                </Stack>
+                </div>
               </>
             )}
             <Button type="submit" variant="contained">
