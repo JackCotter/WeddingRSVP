@@ -63,14 +63,14 @@ export default function Home() {
               Accomodation Details:
             </Typography>
             <Typography className={style["cursive-body"]} variant="body1">
-              We have reserved a block of rooms at the exquisite 'Harmony
-              Heights Inn,' a charming boutique hotel nestled amidst the scenic
-              beauty of the countryside. Each room is elegantly appointed and
-              features picturesque views, ensuring your stay is both comfortable
-              and memorable. To secure your accommodation, please mention our
-              wedding when booking your stay at the 'Harmony Heights Inn.' We
-              can't wait to share this special day with you, and we hope you
-              enjoy your time in our picturesque town.
+              We have reserved a block of rooms at the exquisite Harmony Heights
+              Inn, a charming boutique hotel nestled amidst the scenic beauty of
+              the countryside. Each room is elegantly appointed and features
+              picturesque views, ensuring your stay is both comfortable and
+              memorable. To secure your accommodation, please mention our
+              wedding when booking your stay at the Harmony Heights Inn. We cant
+              wait to share this special day with you, and we hope you enjoy
+              your time in our picturesque town.
             </Typography>
           </Stack>
           <Stack direction="column">
@@ -78,14 +78,14 @@ export default function Home() {
               Bar and Ammenities:
             </Typography>
             <Typography className={style["cursive-body"]} variant="body1">
-              We have reserved a block of rooms at the exquisite 'Harmony
-              Heights Inn,' a charming boutique hotel nestled amidst the scenic
-              beauty of the countryside. Each room is elegantly appointed and
-              features picturesque views, ensuring your stay is both comfortable
-              and memorable. To secure your accommodation, please mention our
-              wedding when booking your stay at the 'Harmony Heights Inn.' We
-              can't wait to share this special day with you, and we hope you
-              enjoy your time in our picturesque town.
+              We have reserved a block of rooms at the exquisite Harmony Heights
+              Inn, a charming boutique hotel nestled amidst the scenic beauty of
+              the countryside. Each room is elegantly appointed and features
+              picturesque views, ensuring your stay is both comfortable and
+              memorable. To secure your accommodation, please mention our
+              wedding when booking your stay at the Harmony Heights Inn. We cant
+              wait to share this special day with you, and we hope you enjoy
+              your time in our picturesque town.
             </Typography>
           </Stack>
         </Stack>
