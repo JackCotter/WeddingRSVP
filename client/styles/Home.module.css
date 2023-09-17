@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-
 .container {
   display: flex;
   justify-content: center;
@@ -53,7 +51,7 @@
 }
 
 .hero-text {
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script) cursive;
   font-size: 10vw;
   color: black;
 }
@@ -73,7 +71,7 @@
   margin-top: 5vh;
   margin-bottom: 5vh;
   padding: 7.5vh;
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script), cursive;
   position: relative;
   height: 82vh;
   width: 35vw;
@@ -90,15 +88,15 @@
 }
 
 .cursive-h1 {
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script), cursive;
   font-size: 4vh;
 }
 .cursive-h3 {
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script), cursive;
   font-size: 4vh;
 }
 .cursive-body {
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script), cursive;
   font-size: 2.7vh;
 }
 
@@ -115,15 +113,15 @@
     justify-content: center;
   }
   .cursive-h1 {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 3vh;
   }
   .cursive-h3 {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 2vh;
   }
   .cursive-body {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 1.5vh;
   }
   .hero-container {
@@ -151,15 +149,15 @@
     justify-content: center;
   }
   .cursive-h1 {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 4vh;
   }
   .cursive-h3 {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 2.5vh;
   }
   .cursive-body {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--dancing-script), cursive;
     font-size: 1.7vh;
   }
   .hero-container {

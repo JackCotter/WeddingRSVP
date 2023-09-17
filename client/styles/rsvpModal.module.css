@@ -4,7 +4,7 @@
 
 .modal-title {
   text-align: center;
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--dancing-script), cursive;
   font-size: xx-large;
 }
 
