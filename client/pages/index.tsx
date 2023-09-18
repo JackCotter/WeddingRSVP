@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { useState } from "react";
+import { Button, Stack, Typography } from "@mui/material";
 import RsvpModal from "@/components/modals/rsvpModal";
 import style from "@/styles/Home.module.css";
+import { ImportantInfoCard } from "@/components/importantInfoCard";
 
 export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
@@ -53,43 +46,43 @@ export default function Home() {
         </div>
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>
-      <Box className={style["important-info"]}>
-        <Typography className={style["cursive-h1"]} variant="h1">
-          Important things!
-        </Typography>
-        <Stack direction="row" spacing={2}>
-          <Stack direction="column">
-            <Typography className={style["cursive-h3"]} variant="h3">
-              Accomodation Details:
-            </Typography>
-            <Typography className={style["cursive-body"]} variant="body1">
-              We have reserved a block of rooms at the exquisite Harmony Heights
+      <ImportantInfoCard
+        imagePath="@/public/holdingHands.jpg"
+        title="Bar and Ammenities"
+        body="We have reserved a block of rooms at the exquisite Harmony Heights
               Inn, a charming boutique hotel nestled amidst the scenic beauty of
               the countryside. Each room is elegantly appointed and features
               picturesque views, ensuring your stay is both comfortable and
               memorable. To secure your accommodation, please mention our
               wedding when booking your stay at the Harmony Heights Inn. We cant
               wait to share this special day with you, and we hope you enjoy
-              your time in our picturesque town.
-            </Typography>
-          </Stack>
-          <Stack direction="column">
-            <Typography className={style["cursive-h3"]} variant="h3">
-              Bar and Ammenities:
-            </Typography>
-            <Typography className={style["cursive-body"]} variant="body1">
-              We have reserved a block of rooms at the exquisite Harmony Heights
+              your time in our picturesque town."
+      />
+      <ImportantInfoCard
+        imagePath="@/public/holdingHands.jpg"
+        reversed={true}
+        title="Bar and Ammenities"
+        body="We have reserved a block of rooms at the exquisite Harmony Heights
               Inn, a charming boutique hotel nestled amidst the scenic beauty of
               the countryside. Each room is elegantly appointed and features
               picturesque views, ensuring your stay is both comfortable and
               memorable. To secure your accommodation, please mention our
               wedding when booking your stay at the Harmony Heights Inn. We cant
               wait to share this special day with you, and we hope you enjoy
-              your time in our picturesque town.
-            </Typography>
-          </Stack>
-        </Stack>
-      </Box>
+              your time in our picturesque town."
+      />
+      <ImportantInfoCard
+        imagePath="@/public/holdingHands.jpg"
+        title="Bar and Ammenities"
+        body="We have reserved a block of rooms at the exquisite Harmony Heights
+              Inn, a charming boutique hotel nestled amidst the scenic beauty of
+              the countryside. Each room is elegantly appointed and features
+              picturesque views, ensuring your stay is both comfortable and
+              memorable. To secure your accommodation, please mention our
+              wedding when booking your stay at the Harmony Heights Inn. We cant
+              wait to share this special day with you, and we hope you enjoy
+              your time in our picturesque town."
+      />
     </Stack>
   );
 }

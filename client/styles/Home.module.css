@@ -73,8 +73,8 @@
   padding: 7.5vh;
   font-family: var(--dancing-script), cursive;
   position: relative;
-  height: 82vh;
-  width: 35vw;
+  min-height: 82vh;
+  max-width: 50vw;
   box-shadow:
 	  inset #009688 0 0 0 5px, 
     inset #059c8e 0 0 0 1px, 
@@ -86,7 +86,6 @@
     inset #bfecf7 0 0 0 22px;
   text-shadow: 3px 3px 1px #bfecf7;
 }
-
 .cursive-h1 {
   font-family: var(--dancing-script), cursive;
   font-size: 4vh;
