@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
-from api import db
+from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
 import bcrypt
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+client = MongoClient(f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@{os.getenv('MONGO_CLUSTER')}.6ba2vaf.mongodb.net/?retryWrites=true&w=majority")
+print(os.getenv('MONGO_USERNAME'))
+db = client['wedding']
 app = Flask(__name__)
 
 @app.route('/api/rsvp', methods=['POST'])
