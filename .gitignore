@@ -34,4 +34,4 @@ client/.vercel
 /client/.tsbuildinfo
 /client/next-env.d.ts
 
-/server/*.env
+/api/*.env
