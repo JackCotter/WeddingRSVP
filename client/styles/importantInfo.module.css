@@ -22,3 +22,22 @@
   margin: 1%;
   border-color: black;
 }
+
+@media only screen and (max-width: 550px) {
+  .info-card-image {
+    display: none;
+  }
+
+  .info-card-divider {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .info-h3 {
+    font-size: 1.5rem;
+  }
+  .info-body {
+    font-size: 0.9rem;
+  }
+}

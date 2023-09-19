@@ -34,10 +34,10 @@ export const ImportantInfoCard = ({
             ></Divider>
             <div className={styles["info-card-text"]}>
               <Stack direction="column">
-                <Typography className={styles["cursive-h3"]} variant="h3">
+                <Typography className={styles["info-h3"]} variant="h3">
                   {title}
                 </Typography>
-                <Typography className={styles["cursive-body"]} variant="body1">
+                <Typography className={styles["info-body"]} variant="body1">
                   {body}
                 </Typography>
               </Stack>
@@ -49,10 +49,10 @@ export const ImportantInfoCard = ({
           <CardContent className={styles["info-card-content"]}>
             <div className={styles["info-card-text"]}>
               <Stack direction="column">
-                <Typography className={styles["cursive-h3"]} variant="h3">
+                <Typography className={styles["info-h3"]} variant="h3">
                   {title}
                 </Typography>
-                <Typography className={styles["cursive-body"]} variant="body1">
+                <Typography className={styles["info-body"]} variant="body1">
                   {body}
                 </Typography>
               </Stack>
