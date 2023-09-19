@@ -1,16 +1,18 @@
 import { Card, CardContent, Divider, Stack, Typography } from "@mui/material";
 import styles from "@/styles/importantInfo.module.css";
+import { StaticImageData } from "next/image";
+import defaultImage from "@/public/holdingHands.jpg";
 
 interface importantInfoCardProps {
   reversed?: boolean;
-  imagePath: string;
+  image?: StaticImageData;
   title: string;
   body: string;
 }
 
 export const ImportantInfoCard = ({
   reversed = false,
-  imagePath = "",
+  image = defaultImage,
   title,
   body,
 }: importantInfoCardProps) => {
@@ -22,7 +24,7 @@ export const ImportantInfoCard = ({
             <div
               className={styles["info-card-image"]}
               style={{
-                backgroundImage: 'url("../public/main.jpg")',
+                backgroundImage: `url(${image.src})`,
               }}
             ></div>
             <Divider

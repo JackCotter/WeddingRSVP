@@ -10,8 +10,9 @@
 }
 
 .info-card-image {
-  /* background-image: url("../public/holdingHands.jpg"); */
+  background-image: url("../public/holdingHands.jpg");
   background-size: cover;
+  background-position: center;
   min-height: 40vh;
   min-width: 30vw;
   border-radius: 4%;

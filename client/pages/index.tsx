@@ -3,6 +3,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import RsvpModal from "@/components/modals/rsvpModal";
 import style from "@/styles/Home.module.css";
 import { ImportantInfoCard } from "@/components/importantInfoCard";
+import infoImg from "@/public/main-mobile.jpg";
 
 export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
@@ -47,7 +48,7 @@ export default function Home() {
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>
       <ImportantInfoCard
-        imagePath="@/public/holdingHands.jpg"
+        image={infoImg}
         title="Bar and Ammenities"
         body="We have reserved a block of rooms at the exquisite Harmony Heights
               Inn, a charming boutique hotel nestled amidst the scenic beauty of
@@ -59,7 +60,6 @@ export default function Home() {
               your time in our picturesque town."
       />
       <ImportantInfoCard
-        imagePath="@/public/holdingHands.jpg"
         reversed={true}
         title="Bar and Ammenities"
         body="We have reserved a block of rooms at the exquisite Harmony Heights
@@ -72,7 +72,6 @@ export default function Home() {
               your time in our picturesque town."
       />
       <ImportantInfoCard
-        imagePath="@/public/holdingHands.jpg"
         title="Bar and Ammenities"
         body="We have reserved a block of rooms at the exquisite Harmony Heights
               Inn, a charming boutique hotel nestled amidst the scenic beauty of
