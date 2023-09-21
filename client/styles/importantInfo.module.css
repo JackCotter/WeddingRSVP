@@ -1,0 +1,43 @@
+.info-card {
+  min-height: 40vh;
+  /* max-width: vw; */
+  margin: 1vh 1vw 1vh 1vw;
+}
+
+.info-card-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-card-image {
+  background-image: url("../public/holdingHands.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 40vh;
+  min-width: 30vw;
+  border-radius: 4%;
+}
+
+.info-card-divider {
+  margin: 1%;
+  border-color: black;
+}
+
+@media only screen and (max-width: 550px) {
+  .info-card-image {
+    display: none;
+  }
+
+  .info-card-divider {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .info-h3 {
+    font-size: 1.5rem;
+  }
+  .info-body {
+    font-size: 0.9rem;
+  }
+}
