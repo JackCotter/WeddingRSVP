@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "@/styles/rsvpModal.module.css";
+import { useRSVP } from "../context/rsvpContext";
 
 interface RsvpModalProps {
   onClose: () => void;
@@ -26,7 +27,9 @@ const RsvpModal = (props: RsvpModalProps) => {
     message: string;
     error: boolean;
   }>({ show: false, message: "", error: true });
-  const router = useRouter();
+
+  const { setRsvpSuccessTrue } = useRSVP();
+
   const rsvpUser = async () => {
     const rsvpQuery = await rsvp(
       formik.values.email,
@@ -51,7 +54,7 @@ const RsvpModal = (props: RsvpModalProps) => {
     } else if (dietQuery.status !== 200) {
       setErrorBar({ show: true, message: dietQuery.message, error: true });
     } else {
-      router.push("/rsvpSuccess");
+      setRsvpSuccessTrue();
     }
   };
   const formik = useFormik({
