@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Alert, Button, Stack, Typography } from "@mui/material";
 import RsvpModal from "@/components/modals/rsvpModal";
 import style from "@/styles/Home.module.css";
 import { ImportantInfoCard } from "@/components/importantInfoCard";
 import infoImg from "@/public/main-mobile.jpg";
 import { useRSVP } from "@/components/context/rsvpContext";
+import CheckIcon from "@mui/icons-material/Check";
 
 export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
@@ -49,6 +50,15 @@ export default function Home() {
               RSVP
             </Button>
           </div>
+          {rsvpSuccess && (
+            <Alert
+              className={style["rsvp-success-alert"]}
+              icon={<CheckIcon className={style["rsvp-success-icon"]} />}
+            >
+              {" "}
+              RSVP Successful{" "}
+            </Alert>
+          )}
         </div>
         {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
       </div>

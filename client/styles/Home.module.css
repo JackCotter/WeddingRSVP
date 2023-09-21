@@ -28,6 +28,16 @@
   background-color: gray;
 }
 
+.rsvp-success-alert {
+  margin-top: 1%;
+  background-color: white;
+  color: black;
+}
+
+.rsvp-success-icon {
+  color: black;
+}
+
 .info-button {
   margin: 10px;
   color: white;

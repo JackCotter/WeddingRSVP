@@ -1,6 +1,7 @@
 import {
   Alert,
   Button,
+  CircularProgress,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -27,10 +28,11 @@ const RsvpModal = (props: RsvpModalProps) => {
     message: string;
     error: boolean;
   }>({ show: false, message: "", error: true });
-
   const { setRsvpSuccessTrue } = useRSVP();
+  const [makingRequests, setMakingRequests] = useState(false);
 
   const rsvpUser = async () => {
+    setMakingRequests(true);
     const rsvpQuery = await rsvp(
       formik.values.email,
       formik.values.name,
@@ -53,6 +55,7 @@ const RsvpModal = (props: RsvpModalProps) => {
         formik.values.dietaryRestrictions
       );
     }
+    setMakingRequests(false);
     if (rsvpQuery.status !== 200) {
       setErrorBar({ show: true, message: rsvpQuery.message, error: true });
     } else if (songQuery.status !== 200) {
@@ -65,6 +68,7 @@ const RsvpModal = (props: RsvpModalProps) => {
       props.onClose();
     }
   };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -79,7 +83,7 @@ const RsvpModal = (props: RsvpModalProps) => {
       email: yup
         .string()
         .email("Please enter a valid email")
-        .required("Please provide your email address"),
+        .required("Please provide an email address"),
       name: yup.string().required("Please provide your name"),
       attending: yup.boolean(),
       guest: yup.string(),
@@ -87,6 +91,7 @@ const RsvpModal = (props: RsvpModalProps) => {
     validateOnChange: false,
     onSubmit: () => rsvpUser(),
   });
+
   return (
     <Dialog open={true} onClose={props.onClose}>
       <DialogTitle className={styles["modal-title"]}>RSVP</DialogTitle>
@@ -190,10 +195,13 @@ const RsvpModal = (props: RsvpModalProps) => {
                 </div>
               </>
             )}
-            <Button type="submit" variant="contained">
-              {" "}
-              Submit{" "}
-            </Button>
+            <Stack direction="row" spacing={2}>
+              <Button type="submit" variant="contained" fullWidth>
+                {" "}
+                Submit{" "}
+              </Button>
+              {makingRequests && <CircularProgress />}
+            </Stack>
           </Stack>
         </form>
       </DialogContent>
