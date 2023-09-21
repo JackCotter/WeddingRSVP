@@ -4,9 +4,13 @@ import RsvpModal from "@/components/modals/rsvpModal";
 import style from "@/styles/Home.module.css";
 import { ImportantInfoCard } from "@/components/importantInfoCard";
 import infoImg from "@/public/main-mobile.jpg";
+import { useRSVP } from "@/components/context/rsvpContext";
 
 export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
+
+  const { rsvpSuccess } = useRSVP();
+  console.log(rsvpSuccess);
 
   const scrollToBottom = () => {
     const targetPosition = window.innerHeight;
@@ -40,6 +44,7 @@ export default function Home() {
               onClick={() => setShowRsvpModal(true)}
               size="large"
               variant="contained"
+              disabled={rsvpSuccess}
             >
               RSVP
             </Button>

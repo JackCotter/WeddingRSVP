@@ -37,16 +37,22 @@ const RsvpModal = (props: RsvpModalProps) => {
       formik.values.attending,
       formik.values.guest
     );
-    const songQuery = await songRequest(
-      formik.values.email,
-      formik.values.name,
-      formik.values.songRequest
-    );
-    const dietQuery = await dietaryRestrictions(
-      formik.values.email,
-      formik.values.name,
-      formik.values.dietaryRestrictions
-    );
+    let songQuery = { status: 200, message: "" };
+    if (formik.values.songRequest !== "") {
+      songQuery = await songRequest(
+        formik.values.email,
+        formik.values.name,
+        formik.values.songRequest
+      );
+    }
+    let dietQuery = { status: 200, message: "" };
+    if (formik.values.dietaryRestrictions !== "") {
+      dietQuery = await dietaryRestrictions(
+        formik.values.email,
+        formik.values.name,
+        formik.values.dietaryRestrictions
+      );
+    }
     if (rsvpQuery.status !== 200) {
       setErrorBar({ show: true, message: rsvpQuery.message, error: true });
     } else if (songQuery.status !== 200) {
@@ -55,6 +61,8 @@ const RsvpModal = (props: RsvpModalProps) => {
       setErrorBar({ show: true, message: dietQuery.message, error: true });
     } else {
       setRsvpSuccessTrue();
+      console.log("success");
+      props.onClose();
     }
   };
   const formik = useFormik({

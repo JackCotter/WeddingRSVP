@@ -31,7 +31,7 @@ def rsvp():
         'guest': user_data['guest'],
     }).inserted_id
 
-    return jsonify({'message': 'User registered successfully', 'user_id': str(user_id)})
+    return jsonify({'message': 'User registered successfully', 'user_id': str(user_id), 'status': 200})
 
 @app.route('/api/songRequest', methods=['POST'])
 @cross_origin()
@@ -49,7 +49,7 @@ def song_request():
         'song': user_data['song']
     })
 
-    return jsonify({'message': 'Song Request Recorded'})
+    return jsonify({'message': 'Song Request Recorded', 'status': 200})
 
 @app.route('/api/dietaryRestrictions', methods=['POST'])
 @cross_origin()
@@ -67,7 +67,7 @@ def dietary_restrictions():
         'dietaryRestrictions': user_data['diet']
     })
 
-    return jsonify({'message': 'Dietary Restrictions Recorded'})
+    return jsonify({'message': 'Dietary Restrictions Recorded', 'status': 200})
 
 @app.route('/api/guestList', methods=['GET'])
 @cross_origin()
