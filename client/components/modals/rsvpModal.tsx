@@ -12,11 +12,11 @@ import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { rsvp } from "@/utils/apiUtils";
-import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "@/styles/rsvpModal.module.css";
 import { useRSVP } from "../context/rsvpContext";
+import { useMutation } from "@tanstack/react-query";
 
 interface RsvpModalProps {
   onClose: () => void;
@@ -43,12 +43,9 @@ const RsvpModal = (props: RsvpModalProps) => {
     );
     setMakingRequests(false);
     if (rsvpQuery.status !== 200) {
-      setErrorBar({ show: true, message: rsvpQuery.message, error: true });
-    } else {
-      setRsvpSuccessTrue();
-      console.log("success");
-      props.onClose();
+      throw new Error(rsvpQuery.message);
     }
+    return rsvpQuery.json();
   };
 
   const formik = useFormik({
@@ -71,7 +68,17 @@ const RsvpModal = (props: RsvpModalProps) => {
       guest: yup.string(),
     }),
     validateOnChange: false,
-    onSubmit: () => rsvpUser(),
+    onSubmit: () => rsvpMutate(),
+  });
+
+  const { mutate: rsvpMutate, isLoading } = useMutation(rsvpUser, {
+    onSuccess: () => {
+      setRsvpSuccessTrue();
+      props.onClose();
+    },
+    onError: (error: any) => {
+      setErrorBar({ show: true, message: error.message, error: true });
+    },
   });
 
   return (
