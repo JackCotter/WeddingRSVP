@@ -29,24 +29,11 @@ interface GuestListI {
 const GuestList = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [guestList, setGuestList] = useState<GuestListI[]>([
-    /*{
-      name: "sdf",
-      email: "sdf",
-      guest: "",
-      attending: "true",
-      song: "",
-      diet: "",
-    },
-    {
-      name: "sdf",
-      email: "sdf",
-      guest: "sdf",
-      attending: "true",
-      song: "song",
-      diet: "diet",
-    },*/
-  ]);
+  const [guestList, setGuestList] = useState<GuestListI[]>([]);
+  const [error, setError] = useState<{ show: boolean; message: string }>({
+    show: false,
+    message: "",
+  });
 
   const queryGuestList = async () => {
     const guestList: any = await getGuestList(username, password);
@@ -74,13 +61,21 @@ const GuestList = () => {
         );
       },
       onError: (error: any) => {
-        console.log(error);
+        setError({ show: true, message: error.message });
       },
     }
   );
 
   return (
-    <div style={{ width: "100%", margin: "8px" }}>
+    <div
+      style={{
+        width: "100%",
+        margin: "8px",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
       <h1>Guest List</h1>
       {guestList && guestList.length == 0 && (
         <div style={{ background: "white" }}>
@@ -89,22 +84,24 @@ const GuestList = () => {
               label="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              sx={{ maxWidth: "20%" }}
             />
             <TextField
               label="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              sx={{ maxWidth: "20%" }}
             />
             <Stack direction="row" spacing={2}>
-              <Button variant="contained" onClick={() => getGuestListMutate()}>
+              <Button
+                variant="contained"
+                onClick={() => getGuestListMutate()}
+                fullWidth
+              >
                 {" "}
                 Get Guest List{" "}
               </Button>
+              {isLoading && <CircularProgress />}
             </Stack>
-            {isLoading && <CircularProgress />}
           </Stack>
         </div>
       )}
