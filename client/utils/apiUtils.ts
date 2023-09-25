@@ -19,5 +19,5 @@ export const rsvp = async (email:string, name:string, attending:boolean, guest:s
 
 export const getGuestList = async (username: string, password: string) => {
     const response = await axios.get('https://weddingrsvp-api.vercel.app/api/guestList?username=' + username + '&password=' + password);
-    return response;
+    return response.data;
 }
