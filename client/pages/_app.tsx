@@ -12,13 +12,7 @@ const dancing_script = Dancing_Script({
   subsets: ["latin"],
 });
 
-const client = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retries: 0,
-    },
-  },
-});
+const client = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
