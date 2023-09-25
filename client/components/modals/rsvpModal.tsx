@@ -11,12 +11,12 @@ import {
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { dietaryRestrictions, rsvp, songRequest } from "@/utils/apiUtils";
-import { useRouter } from "next/router";
+import { rsvp } from "@/utils/apiUtils";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styles from "@/styles/rsvpModal.module.css";
 import { useRSVP } from "../context/rsvpContext";
+import { useMutation } from "@tanstack/react-query";
 
 interface RsvpModalProps {
   onClose: () => void;
@@ -29,45 +29,31 @@ const RsvpModal = (props: RsvpModalProps) => {
     error: boolean;
   }>({ show: false, message: "", error: true });
   const { setRsvpSuccessTrue } = useRSVP();
-  const [makingRequests, setMakingRequests] = useState(false);
 
   const rsvpUser = async () => {
-    setMakingRequests(true);
     const rsvpQuery = await rsvp(
       formik.values.email,
       formik.values.name,
       formik.values.attending,
-      formik.values.guest
+      formik.values.guest,
+      formik.values.songRequest,
+      formik.values.dietaryRestrictions
     );
-    let songQuery = { status: 200, message: "" };
-    if (formik.values.songRequest !== "") {
-      songQuery = await songRequest(
-        formik.values.email,
-        formik.values.name,
-        formik.values.songRequest
-      );
-    }
-    let dietQuery = { status: 200, message: "" };
-    if (formik.values.dietaryRestrictions !== "") {
-      dietQuery = await dietaryRestrictions(
-        formik.values.email,
-        formik.values.name,
-        formik.values.dietaryRestrictions
-      );
-    }
-    setMakingRequests(false);
     if (rsvpQuery.status !== 200) {
-      setErrorBar({ show: true, message: rsvpQuery.message, error: true });
-    } else if (songQuery.status !== 200) {
-      setErrorBar({ show: true, message: songQuery.message, error: true });
-    } else if (dietQuery.status !== 200) {
-      setErrorBar({ show: true, message: dietQuery.message, error: true });
-    } else {
-      setRsvpSuccessTrue();
-      console.log("success");
-      props.onClose();
+      throw new Error(rsvpQuery.message);
     }
+    return rsvpQuery;
   };
+
+  const { mutate: rsvpMutate, isLoading } = useMutation(rsvpUser, {
+    onSuccess: () => {
+      setRsvpSuccessTrue();
+      props.onClose();
+    },
+    onError: (error: any) => {
+      setErrorBar({ show: true, message: error.message, error: true });
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -87,9 +73,11 @@ const RsvpModal = (props: RsvpModalProps) => {
       name: yup.string().required("Please provide your name"),
       attending: yup.boolean(),
       guest: yup.string(),
+      songRequest: yup.string(),
+      dietaryRestrictions: yup.string(),
     }),
     validateOnChange: false,
-    onSubmit: () => rsvpUser(),
+    onSubmit: () => rsvpMutate(),
   });
 
   return (
@@ -200,7 +188,7 @@ const RsvpModal = (props: RsvpModalProps) => {
                 {" "}
                 Submit{" "}
               </Button>
-              {makingRequests && <CircularProgress />}
+              {isLoading && <CircularProgress />}
             </Stack>
           </Stack>
         </form>

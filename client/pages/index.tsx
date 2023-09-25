@@ -11,7 +11,6 @@ export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
 
   const { rsvpSuccess } = useRSVP();
-  console.log(rsvpSuccess);
 
   const scrollToBottom = () => {
     const targetPosition = window.innerHeight;
