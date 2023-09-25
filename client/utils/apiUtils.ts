@@ -9,7 +9,7 @@ export const rsvp = async (email:string, name:string, attending:boolean, guest:s
         song: song,
         diet: diet
     }
-    const response = await axios.post('http://localhost:5000/api/rsvp', rsvpData, {
+    const response = await axios.post('https://weddingrsvp-api.vercel.app/api/rsvp', rsvpData, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -18,6 +18,6 @@ export const rsvp = async (email:string, name:string, attending:boolean, guest:s
 }
 
 export const getGuestList = async (username: string, password: string) => {
-    const response = await axios.get('http://localhost:5000/api/guestList?username=' + username + '&password=' + password);
+    const response = await axios.get('https://weddingrsvp-api.vercel.app/api/guestList?username=' + username + '&password=' + password);
     return response;
 }

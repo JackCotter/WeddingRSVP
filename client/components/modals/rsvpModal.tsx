@@ -29,10 +29,8 @@ const RsvpModal = (props: RsvpModalProps) => {
     error: boolean;
   }>({ show: false, message: "", error: true });
   const { setRsvpSuccessTrue } = useRSVP();
-  const [makingRequests, setMakingRequests] = useState(false);
 
   const rsvpUser = async () => {
-    setMakingRequests(true);
     const rsvpQuery = await rsvp(
       formik.values.email,
       formik.values.name,
@@ -41,12 +39,21 @@ const RsvpModal = (props: RsvpModalProps) => {
       formik.values.songRequest,
       formik.values.dietaryRestrictions
     );
-    setMakingRequests(false);
     if (rsvpQuery.status !== 200) {
       throw new Error(rsvpQuery.message);
     }
-    return rsvpQuery.json();
+    return rsvpQuery;
   };
+
+  const { mutate: rsvpMutate, isLoading } = useMutation(rsvpUser, {
+    onSuccess: () => {
+      setRsvpSuccessTrue();
+      props.onClose();
+    },
+    onError: (error: any) => {
+      setErrorBar({ show: true, message: error.message, error: true });
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -66,19 +73,11 @@ const RsvpModal = (props: RsvpModalProps) => {
       name: yup.string().required("Please provide your name"),
       attending: yup.boolean(),
       guest: yup.string(),
+      songRequest: yup.string(),
+      dietaryRestrictions: yup.string(),
     }),
     validateOnChange: false,
     onSubmit: () => rsvpMutate(),
-  });
-
-  const { mutate: rsvpMutate, isLoading } = useMutation(rsvpUser, {
-    onSuccess: () => {
-      setRsvpSuccessTrue();
-      props.onClose();
-    },
-    onError: (error: any) => {
-      setErrorBar({ show: true, message: error.message, error: true });
-    },
   });
 
   return (
@@ -189,7 +188,7 @@ const RsvpModal = (props: RsvpModalProps) => {
                 {" "}
                 Submit{" "}
               </Button>
-              {makingRequests && <CircularProgress />}
+              {isLoading && <CircularProgress />}
             </Stack>
           </Stack>
         </form>
