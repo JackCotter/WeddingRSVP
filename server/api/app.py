@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 client = MongoClient(f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@{os.getenv('MONGO_CLUSTER')}.6ba2vaf.mongodb.net/?retryWrites=true&w=majority")
-print(os.getenv('MONGO_USERNAME'))
 db = client['wedding']
 app = Flask(__name__)
 
@@ -56,18 +55,26 @@ def rsvp():
 def guestList():
     admin_collection = db['admins']
     rsvp_collection = db['rsvp']
+    song_request_collection = db['SongRequests']
+    dietary_restrictions_collection = db['DietaryRestrictions']
     password = request.args.get('password')
     user = admin_collection.find_one({'username': request.args.get('username')})
     if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
         guests = []
         for guest in rsvp_collection.find():
+            song_request = song_request_collection.find_one({'email': guest['email']})
+            dietary_restrictions = dietary_restrictions_collection.find_one({'email': guest['email']})
+            if ('name' not in guest or 'email' not in guest or 'attending' not in guest or 'guest' not in guest):
+                continue
             guests.append({
                 'name': guest['name'],
                 'email': guest['email'],
                 'attending': guest['attending'],
                 'guest': guest['guest'],
+                'song': song_request['song'] if song_request else '',
+                'dietaryRestrictions': dietary_restrictions['dietaryRestrictions'] if dietary_restrictions else ''
             })
-        return jsonify(guests)
+        return jsonify({'guests': guests, 'status': 200})
     else:
         return jsonify({'message': 'Invalid username and password', 'status': 400})
 
@@ -85,6 +92,7 @@ def guestList():
 #     }
 
 #     users_collection.insert_one(user_data)
+#     return {'success': True}
 
 if __name__ == '__main__':
     app.run()
