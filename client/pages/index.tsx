@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Stack, Typography } from "@mui/material";
 import RsvpModal from "@/components/modals/rsvpModal";
 import style from "@/styles/Home.module.css";
@@ -6,11 +6,14 @@ import { ImportantInfoCard } from "@/components/importantInfoCard";
 import infoImg from "@/public/main-mobile.jpg";
 import { useRSVP } from "@/components/context/rsvpContext";
 import CheckIcon from "@mui/icons-material/Check";
+import { useRouter } from "next/router";
+import { useAuth } from "@/components/context/authContext";
 
 export default function Home() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
 
   const { rsvpSuccess } = useRSVP();
+  const { authString } = useAuth();
 
   const scrollToBottom = () => {
     const targetPosition = window.innerHeight;
@@ -20,6 +23,10 @@ export default function Home() {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    console.log(authString);
+  }, []);
 
   return (
     <Stack direction="column" className={style["container"]}>
