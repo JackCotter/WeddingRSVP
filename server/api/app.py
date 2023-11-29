@@ -15,20 +15,20 @@ app = Flask(__name__)
 @app.route('/api/rsvp', methods=['POST'])
 @cross_origin()
 def rsvp():
-    invitees_collection = db['Invitees']
+    auth_string_collection = db['authStrings']
     rsvp_collection = db['rsvp']
     song_request_collection = db['SongRequests']
     dietary_restrictions_collection = db['DietaryRestrictions']
     user_data = request.json
-    # Check if the user is invited
-    if user_data.get('authString') is None or invitees_collection.find_one({'auth': user_data['authString'], 'used': {'$exists': True}}) is None:
+    auth_string = user_data.get('authString')
+    if auth_string is None:
+        return jsonify({'message': 'No Authentication Token Supplied. Please scan QR code on invitation', 'status': 400})
+    auth_id = auth_string[0:3]
+    auth_string = auth_string[3:]
+    auth_string_in_db = auth_string_collection.find_one({'id': auth_id})
+
+    if auth_string_in_db is None or rsvp_collection.find_one({'id': auth_id}) is not None or bcrypt.checkpw(auth_string.encode('utf-8'), auth_string_in_db['auth_string'].encode('utf-8')) is False:
         return jsonify({'message': 'Invalid token. Please scan QR code to RSVP.', 'status': 400})
-    if rsvp_collection.find_one({'email': user_data['email']}) is not None:
-        return jsonify({'message': 'This email address has already responded', 'status': 400})
-    if song_request_collection.find_one({'email': user_data['email']}) is not None:
-        return jsonify({'message': 'This guest has already provided a song request', 'status': 400})
-    if dietary_restrictions_collection.find_one({'email': user_data['email']}) is not None:
-        return jsonify({'message': 'This guest has already specified dietary restrictions', 'status': 400})
 
     if (user_data['song'] and user_data['song'] != ''):
         song_request_collection.insert_one({
@@ -49,16 +49,38 @@ def rsvp():
         'email': user_data['email'],
         'attending': user_data['attending'],
         'guest': user_data['guest'],
+        'id': auth_id
     }).inserted_id
 
-    invitees_collection.update_one(
-        {'auth': user_data['authString']},
-        {'$set': {'used': True}}
-    )
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id), 'status': 200})
 
 
+# @app.route('/api/auth/create', methods=['POST'])
+# @cross_origin()
+# def auth_create():
+#     auth_collection = db['authStrings']
+#     auth_data = request.json
+#     auth_string = auth_data.get('authString')
+#     if auth_string is None:
+#         return jsonify({'message': 'Invalid authString', 'status': 400}), 400
+
+#     auth_id = auth_string[0:3]
+#     auth_string = auth_string[3:]
+
+#     hashed_auth_string = bcrypt.hashpw(
+#         auth_string.encode('utf-8'), bcrypt.gensalt())
+
+#     auth_data = {
+#         'id': auth_id,
+#         'auth_string': hashed_auth_string.decode('utf-8')
+#     }
+
+#     auth_collection.insert_one(auth_data)
+#     return {'success': True}
+
+
 @app.route('/api/guestList', methods=['GET'])
+@cross_origin()
 def guestList():
     admin_collection = db['admins']
     rsvp_collection = db['rsvp']
