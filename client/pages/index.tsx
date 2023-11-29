@@ -24,10 +24,6 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    console.log(authString);
-  }, []);
-
   return (
     <Stack direction="column" className={style["container"]}>
       <div className={style["main-page"]}>
@@ -66,7 +62,12 @@ export default function Home() {
             </Alert>
           )}
         </div>
-        {showRsvpModal && <RsvpModal onClose={() => setShowRsvpModal(false)} />}
+        {showRsvpModal && (
+          <RsvpModal
+            authString={authString}
+            onClose={() => setShowRsvpModal(false)}
+          />
+        )}
       </div>
       <ImportantInfoCard
         image={infoImg}

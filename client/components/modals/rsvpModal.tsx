@@ -19,6 +19,7 @@ import { useRSVP } from "../context/rsvpContext";
 import { useMutation } from "@tanstack/react-query";
 
 interface RsvpModalProps {
+  authString: string | undefined;
   onClose: () => void;
 }
 
@@ -32,6 +33,7 @@ const RsvpModal = (props: RsvpModalProps) => {
 
   const rsvpUser = async () => {
     const rsvpQuery = await rsvp(
+      props.authString,
       formik.values.email,
       formik.values.name,
       formik.values.attending,
