@@ -76,7 +76,13 @@ def auth_create():
         'auth_string': hashed_auth_string.decode('utf-8')
     }
 
-    auth_collection.insert_one(auth_data)
+    current_auth = auth_collection.find_one({'id': auth_id})
+    
+    if current_auth is None:
+        auth_collection.insert_one(auth_data)
+    else:
+        auth_collection.update_one({'id': auth_id}, {'$set': auth_data})
+
     return {'success': True}
 
 
