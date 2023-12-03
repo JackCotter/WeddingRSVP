@@ -6,6 +6,7 @@ import { ThemeProvider } from "@emotion/react";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { RsvpContextProvider } from "@/components/context/rsvpContext";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { AuthContextProvider } from "@/components/context/authContext";
 
 const dancing_script = Dancing_Script({
   variable: "--font-dancing-script",
@@ -20,7 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={client}>
           <RsvpContextProvider>
-            <Component {...pageProps} className={dancing_script.variable} />
+            <AuthContextProvider>
+              <Component {...pageProps} className={dancing_script.variable} />
+            </AuthContextProvider>
           </RsvpContextProvider>
         </QueryClientProvider>
       </ThemeProvider>

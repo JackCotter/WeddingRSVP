@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export const rsvp = async (email:string, name:string, attending:boolean, guest:string, song:string, diet: string) => {
+export const rsvp = async (authString: string | undefined, email:string, name:string, attending:boolean, guest:string, song:string, diet: string) => {
     const rsvpData = {
+        authString: authString,
         email: email,
         name: name,
         attending: attending,
