@@ -46,7 +46,6 @@ def generate_invites(input_filepath, number_invites):
             pass
 
         background.save(output_filename, "PNG")
-    print(token_list)
     save_tokens(token_list)
 
 

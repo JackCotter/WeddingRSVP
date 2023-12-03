@@ -10,7 +10,7 @@ export const rsvp = async (authString: string | undefined, email:string, name:st
         song: song,
         diet: diet
     }
-    const response = await axios.post('https://weddingrsvp-api.vercel.app/api/rsvp', rsvpData, {
+    const response = await axios.post('http://localhost:5000/api/rsvp', rsvpData, {
         headers: {
             'Content-Type': 'application/json',
         }
