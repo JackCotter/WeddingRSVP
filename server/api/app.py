@@ -55,28 +55,36 @@ def rsvp():
     return jsonify({'message': 'User registered successfully', 'user_id': str(user_id), 'status': 200})
 
 
-# @app.route('/api/auth/create', methods=['POST'])
-# @cross_origin()
-# def auth_create():
-#     auth_collection = db['authStrings']
-#     auth_data = request.json
-#     auth_string = auth_data.get('authString')
-#     if auth_string is None:
-#         return jsonify({'message': 'Invalid authString', 'status': 400}), 400
+@app.route('/api/auth/create', methods=['POST'])
+@cross_origin()
+def auth_create():
+    admin_collection = db['admins']
+    auth_collection = db['authStrings']
+    auth_data = request.json
 
-#     auth_id = auth_string[0:3]
-#     auth_string = auth_string[3:]
+    password = auth_data.get('password')
+    user = admin_collection.find_one(
+        {'username': auth_data.get('username')})
+    if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+        return jsonify({'message': 'Invalid username and password', 'status': 400}), 400
 
-#     hashed_auth_string = bcrypt.hashpw(
-#         auth_string.encode('utf-8'), bcrypt.gensalt())
+    auth_string = auth_data.get('authString')
+    if auth_string is None:
+        return jsonify({'message': 'Invalid authString', 'status': 400}), 400
 
-#     auth_data = {
-#         'id': auth_id,
-#         'auth_string': hashed_auth_string.decode('utf-8')
-#     }
+    auth_id = auth_string[0:3]
+    auth_string = auth_string[3:]
 
-#     auth_collection.insert_one(auth_data)
-#     return {'success': True}
+    hashed_auth_string = bcrypt.hashpw(
+        auth_string.encode('utf-8'), bcrypt.gensalt())
+
+    auth_data = {
+        'id': auth_id,
+        'auth_string': hashed_auth_string.decode('utf-8')
+    }
+
+    auth_collection.insert_one(auth_data)
+    return {'success': True}
 
 
 @app.route('/api/guestList', methods=['GET'])
