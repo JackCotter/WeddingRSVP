@@ -8,7 +8,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { rsvp } from "@/utils/apiUtils";
@@ -29,6 +29,12 @@ const RsvpModal = (props: RsvpModalProps) => {
     message: string;
     error: boolean;
   }>({ show: false, message: "", error: true });
+  const errorBarRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToModalErrorMsg = () => {
+    errorBarRef.current?.scrollIntoView({ block: "nearest" });
+  };
+
   const { setRsvpSuccessTrue } = useRSVP();
 
   const rsvpUser = async () => {
@@ -54,6 +60,7 @@ const RsvpModal = (props: RsvpModalProps) => {
     },
     onError: (error: any) => {
       setErrorBar({ show: true, message: error.message, error: true });
+      scrollToModalErrorMsg();
     },
   });
 
@@ -89,7 +96,10 @@ const RsvpModal = (props: RsvpModalProps) => {
         <form onSubmit={formik.handleSubmit}>
           <Stack className={styles["wrapper"]} spacing={2} direction="column">
             {errorBar.show && (
-              <Alert severity={errorBar.error ? "error" : "success"}>
+              <Alert
+                ref={errorBarRef}
+                severity={errorBar.error ? "error" : "success"}
+              >
                 {errorBar.message
                   ? errorBar.message
                   : "There was a server error"}
