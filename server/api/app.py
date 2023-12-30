@@ -11,9 +11,9 @@ client = MongoClient(
 db = client['wedding']
 app = Flask(__name__)
 
+CORS(app, origins=['http://localhost:3000', 'https://www.holtwedding.ca/'],)
 
 @app.route('/api/rsvp', methods=['POST'])
-@cross_origin()
 def rsvp():
     auth_string_collection = db['authStrings']
     rsvp_collection = db['rsvp']
@@ -56,7 +56,6 @@ def rsvp():
 
 
 @app.route('/api/auth/create', methods=['POST'])
-@cross_origin()
 def auth_create():
     admin_collection = db['admins']
     auth_collection = db['authStrings']
@@ -88,7 +87,6 @@ def auth_create():
 
 
 @app.route('/api/guestList', methods=['GET'])
-@cross_origin()
 def guestList():
     admin_collection = db['admins']
     rsvp_collection = db['rsvp']
